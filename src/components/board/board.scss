@@ -1,0 +1,174 @@
+$cell: 2vw;
+$cross-size: 2vw;
+$cross-size: 2vw;
+$cross-colour: #74483b;
+$cross-linethickness: 2px;
+$board-border: #ad702a;
+$board-borderthickness: 1vw;
+
+.board {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 40vw;
+  padding: 5vw;
+  margin: 0 auto;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  .row {
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    justify-content: center;
+    border-left: $board-borderthickness solid $board-border;
+    border-right: $board-borderthickness solid $board-border;
+    &:first-child {
+      border-top: $board-borderthickness solid $board-border;
+    }
+    &:last-child {
+      border-bottom: $board-borderthickness solid $board-border;
+    }
+  }
+
+  .cell {
+    width: $cell;
+    height: $cell;
+    position: relative;
+    background: #d9a569;
+  }
+
+  .pit {
+    width: $cell;
+    height: $cell;
+    position: relative;
+    &:hover {
+      background: #4d9c9875;
+      border-radius: 20%;
+      cursor: none;
+    }
+  }
+}
+
+.cross.regular {
+  height: $cross-size;
+  background: $cross-colour;
+  position: absolute;
+  left: calc(#{$cross-size}/ 2);
+  width: $cross-linethickness;
+  &:after {
+    background: $cross-colour;
+    content: "";
+    height: $cross-linethickness;
+    left: calc(-#{$cross-size}/ 2);
+    position: absolute;
+    top: calc(#{$cross-size}/ 2);
+    width: $cross-size;
+  }
+}
+
+.cross.left {
+  height: $cross-size;
+  background: $cross-colour;
+  position: absolute;
+  left: calc(#{$cross-size}/ 2);
+  width: $cross-linethickness;
+  &:after {
+    background: $cross-colour;
+    content: "";
+    height: $cross-linethickness;
+    left: 0;
+    position: absolute;
+    top: calc(#{$cross-size}/ 2);
+    width: calc(#{$cross-size}/ 2);
+  }
+}
+
+.cross.right {
+  height: $cross-size;
+  background: $cross-colour;
+  position: absolute;
+  left: calc(#{$cross-size}/ 2);
+  width: $cross-linethickness;
+  &:after {
+    background: $cross-colour;
+    content: "";
+    height: $cross-linethickness;
+    left: calc(-#{$cross-size}/ 2);
+    position: absolute;
+    top: calc(#{$cross-size}/ 2);
+    width: calc(#{$cross-size}/ 2);
+  }
+}
+
+.cross.top {
+  height: calc(#{$cross-size}/ 2);
+  background: $cross-colour;
+  position: absolute;
+  left: calc(#{$cross-size}/ 2);
+  top: calc(#{$cross-size}/ 2);
+  width: $cross-linethickness;
+
+  &:after {
+    background: $cross-colour;
+    content: "";
+    height: $cross-linethickness;
+    left: calc(-#{$cross-size}/ 2);
+    position: absolute;
+    top: 0;
+    width: $cross-size;
+  }
+}
+
+.cross.bottom {
+  height: calc(#{$cross-size}/ 2);
+  background: $cross-colour;
+  position: absolute;
+  left: calc(#{$cross-size}/ 2);
+  top: 0;
+  width: $cross-linethickness;
+
+  &:after {
+    background: $cross-colour;
+    content: "";
+    height: $cross-linethickness;
+    left: calc(-#{$cross-size}/ 2);
+    position: absolute;
+    top: calc(#{$cross-size}/ 2);
+    width: $cross-size;
+  }
+}
+
+.cross.top.cross.left::after {
+  left: 0;
+}
+
+.cross.bottom.cross.left::after {
+  left: 0;
+}
+
+.cross.top.cross.right::after {
+  width: calc(#{$cross-size}/ 2);
+}
+
+.cross.bottom.cross.right::after {
+  width: calc(#{$cross-size}/ 2);
+}
+
+.stone {
+  width: calc(#{$cell} * 0.75);
+  height: calc(#{$cell} * 0.75);
+  border-radius: 50%;
+  position: absolute;
+  top: calc(#{$cell}* 0.12);
+  left: calc(#{$cell}* 0.12);
+}
+.stone.white {
+  background: #ffe;
+}
+.stone.black {
+  background: #111;
+}
