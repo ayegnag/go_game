@@ -1,33 +1,128 @@
-const findNeighbours = (xy, boardState) => {
-  const coord = xy.split("_");
-  const X = parseInt(coord[0]);
-  const Y = parseInt(coord[1]);
-  console.log("TCL: findNeighbours -> coord", coord);
-  const N = X + "_" + (Y - 1);
-  const neighbourN = boardState[N];
-  const S = X + "_" + (Y + 1);
-  const neighbourS = boardState[S];
-  const W = X - 1 + "_" + Y;
-  const neighbourW = boardState[W];
-  const E = X + 1 + "_" + Y;
-  const neighbourE = boardState[E];
-  console.log("TCL: findNeighbours -> neighbours", N, S, W, E);
-  console.log(
-    "TCL: findNeighbours -> neighbours",
-    neighbourN,
-    neighbourS,
-    neighbourW,
-    neighbourE
-  );
-  return [neighbourN, neighbourS, neighbourW, neighbourE];
-};
+function isPitOccipied(stone) {
+  // const pit = boardState[xy];
+  return stone.type !== 0 ? false : true;
+}
 
-export default function rules(position, stoneType, boardState) {
+function rules(newStone, xy, boardState, size, updateBoard) {
+  const isWithinBounds = stone => {
+    return (
+      stone &&
+      stone.row < size &&
+      stone.row >= 0 &&
+      stone.col < size &&
+      stone.col >= 0
+    );
+  };
+
+  const findNeighbours = stone => {
+    const neighbours = [];
+    const { row, col } = stone;
+    // console.log("TCL: findNeighbours for -> coord", col, row);
+    const N = col + "_" + (row - 1);
+    const S = col + "_" + (row + 1);
+    const W = col - 1 + "_" + row;
+    const E = col + 1 + "_" + row;
+    const directions = [N, S, W, E];
+    // console.log("TCL: findNeighbours -> directions", N, S, W, E);
+    directions.forEach(side => {
+      const n = boardState[side];
+      if (n) neighbours.push(n);
+    });
+    // console.log("TCL: findNeighbours -> neighbours", neighbours);
+    return neighbours;
+  };
+
+  const isEqual = (stone, neighbour) => {
+    return stone.row === neighbour.row && stone.col === neighbour.col;
+  };
+
+  const isInArray = (stone, array) => {
+    for (let i = 0; i < array.length; i++) {
+      if (isEqual(stone, array[i])) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const calcLiberties = (stone, chainStones, libStones) => {
+    chainStones = chainStones || [];
+    libStones = libStones || [];
+    const nStones = findNeighbours(stone, boardState);
+    nStones.forEach(nstone => {
+      if (isWithinBounds(nstone, size)) {
+        if (stone.type === nstone.type) {
+          chainStones.push(nstone);
+          if (!isInArray(nstone, chainStones)) {
+            calcLiberties(nstone, chainStones, libStones);
+          }
+        } else if (nstone.type === 0) {
+          if (!isInArray(nstone, libStones)) {
+            libStones.push(nstone);
+          }
+        }
+      }
+    });
+    console.log("TCL: libStones", libStones);
+    return libStones;
+  };
+
+  const calcChains = (stone, chainStones) => {
+    chainStones = chainStones || [];
+    chainStones.push(stone);
+    const nStones = findNeighbours(stone, boardState);
+    nStones.forEach(nstone => {
+      // Note: boundary check might not be required.
+      if (isWithinBounds(nstone, size)) {
+        if (stone.type === nstone.type) {
+          if (!isInArray(nstone, chainStones)) {
+            calcChains(nstone, chainStones, boardState, size);
+          }
+        }
+      }
+    });
+    // console.log("TCL: chainStones", chainStones);
+    return chainStones;
+  };
+
+  const calcCapturedStones = stone => {
+    let captured = [];
+    const nStones = findNeighbours(stone, boardState);
+    nStones.forEach(nstone => {
+      // Note: boundary check might not be required.
+      if (isWithinBounds(nstone, size)) {
+        if (stone.type !== nstone.type && nstone.type !== 0) {
+          if (!isInArray(nstone, captured)) {
+            console.log("TCL: captured -> nstone", nstone);
+            if (calcLiberties(nstone).length === 0) {
+              const chainedStones = calcChains(nstone);
+              captured = [...captured, ...chainedStones];
+            }
+          }
+        }
+      }
+    });
+    console.log("TCL: calcCapturedStones", captured);
+    return captured;
+  };
+
   let result = true;
-  if (boardState[position] !== undefined) {
-    result = false;
+  // calcLiberties(newStone, [], [], boardState, size);
+  // calcChains(newStone, [], boardState, size);
+  const captures = calcCapturedStones(newStone);
+  if (captures.length > 0) {
+    const board = boardState;
+    captures.forEach(cap => {
+      const cr = cap.col + "_" + cap.row;
+      board[cr].type = 0;
+    });
+    updateBoard(board);
   }
-  findNeighbours(position, boardState);
   console.log("TCL: rules -> result", result);
   return result;
 }
+
+module.exports = {
+  rules,
+  isPitOccipied
+};

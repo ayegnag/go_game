@@ -7,7 +7,7 @@ export default class TurnBox extends Component {
     this.setGlobal({ turn: turn === 1 ? 2 : 1 });
   }
   render() {
-    const { turn } = this.global;
+    const { turn, position } = this.global;
 
     return (
       <div className="Turn">
@@ -21,6 +21,9 @@ export default class TurnBox extends Component {
         <button className="button" onClick={() => this.passTurn(turn)}>
           Pass Turn
         </button>
+        <span className="info">
+          {position.row}, {position.col}
+        </span>
       </div>
     );
   }
