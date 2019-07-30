@@ -1,6 +1,8 @@
 import React, { useGlobal } from "reactn";
 import { useSpring, animated, config } from "react-spring";
+import rules from "./rules";
 import "./board.scss";
+import "../../styles/stone.scss";
 
 function Stone(prop) {
   const { stone } = prop;
@@ -29,17 +31,21 @@ export default class StonePit extends React.Component {
     const { stoneMatrix, turn } = this.global;
     const preStones = stoneMatrix;
     // Use Game Rule Check here----------------------------------------
-
+    const validMove = rules(xy, turn, preStones);
+    console.log("TCL: StonePit -> validMove", validMove);
     // ------------ Rules End
-    preStones[xy] = {
-      type: turn,
-      group: "",
-      liberties: 4
-    };
-    this.setGlobal({
-      stoneMatrix: { ...preStones }
-    });
-    this.ToggleTurn();
+    if (validMove) {
+      preStones[xy] = {
+        pos: xy,
+        type: turn,
+        group: "",
+        liberties: 4
+      };
+      this.setGlobal({
+        stoneMatrix: { ...preStones }
+      });
+      this.ToggleTurn();
+    }
   };
   state = {
     id: this.props.xy

@@ -2,23 +2,72 @@ $cell: 2vw;
 $cross-size: 2vw;
 $cross-size: 2vw;
 $cross-colour: #74483b;
-$cross-linethickness: 2px;
+$cross-linethickness: 1px;
 $board-border: #ad702a;
 $board-borderthickness: 1vw;
+$size9: calc(#{$cell} * 9 + #{$board-borderthickness} * 2);
+$size13: calc(#{$cell} * 13 + #{$board-borderthickness} * 2);
+$size19: calc(#{$cell} * 19 + #{$board-borderthickness} * 2);
 
+.grid {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  color: #fff;
+  float: left;
+  margin-top: -30vw;
+  overflow: visible;
+  position: relative;
+  z-index: 99;
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    justify-content: center;
+    border-left: $board-borderthickness solid $board-border;
+    border-right: $board-borderthickness solid $board-border;
+    &:first-child {
+      border-top: $board-borderthickness solid $board-border;
+    }
+    &:last-child {
+      border-bottom: $board-borderthickness solid $board-border;
+    }
+  }
+  .pit {
+    width: $cell;
+    height: $cell;
+    position: relative;
+    &:hover {
+      background: #4d9c9875;
+      border-radius: 20%;
+      cursor: none;
+    }
+  }
+}
 .board {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  width: 40vw;
-  padding: 5vw;
-  margin: 0 auto;
   color: #fff;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  position: relative;
+  background: #d9a569;
+  // &:before {
+  //   background-image: linear-gradient(180deg, black 0, transparent 1px),
+  //     linear-gradient(90deg, black 0, transparent 1px);
+  //   background-size: $cell $cell;
+  //   bottom: 0;
+  //   content: "";
+  //   display: block;
+  //   left: $board-borderthickness;
+  //   position: absolute;
+  //   right: $board-borderthickness;
+  //   top: $cell;
+  //   width: $size19;
+  //   height: $size19;
+  // }
   .row {
     display: flex;
     flex-direction: row;
@@ -40,17 +89,35 @@ $board-borderthickness: 1vw;
     position: relative;
     background: #d9a569;
   }
+}
 
-  .pit {
-    width: $cell;
-    height: $cell;
-    position: relative;
-    &:hover {
-      background: #4d9c9875;
-      border-radius: 20%;
-      cursor: none;
-    }
-  }
+.size9 {
+  width: $size9;
+  height: $size9;
+}
+.size13 {
+  width: $size13;
+  height: $size13;
+}
+.size19 {
+  width: $size19;
+  height: $size19;
+}
+
+.sizeg9 {
+  width: $size9;
+  height: $size9;
+  margin-top: calc(#{$size9} * -1);
+}
+.sizeg13 {
+  width: $size13;
+  height: $size13;
+  margin-top: calc(#{$size13} * -1);
+}
+.sizeg19 {
+  width: $size19;
+  height: $size19;
+  margin-top: calc(#{$size19} * -1);
 }
 
 .cross.regular {
@@ -156,19 +223,4 @@ $board-borderthickness: 1vw;
 
 .cross.bottom.cross.right::after {
   width: calc(#{$cross-size}/ 2);
-}
-
-.stone {
-  width: calc(#{$cell} * 0.75);
-  height: calc(#{$cell} * 0.75);
-  border-radius: 50%;
-  position: absolute;
-  top: calc(#{$cell}* 0.12);
-  left: calc(#{$cell}* 0.12);
-}
-.stone.white {
-  background: #ffe;
-}
-.stone.black {
-  background: #111;
 }

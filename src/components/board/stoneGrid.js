@@ -1,7 +1,5 @@
 import React, { useGlobal } from "reactn";
-import { useSpring, animated } from "react-spring";
 import StonePit from "./stone";
-import short from "short-uuid";
 import "./board.scss";
 
 const GenerateStones = ({ getStones, size }) => {
@@ -9,7 +7,7 @@ const GenerateStones = ({ getStones, size }) => {
   for (let rows = 0; rows < size; rows++) {
     let stones = [];
     for (let stone = 0; stone < size; stone++) {
-      const xy = rows + "" + stone;
+      const xy = stone + "_" + rows;
       let type = 0;
       let key = xy;
       const thisStone = getStones[xy];
@@ -31,5 +29,9 @@ const GenerateStones = ({ getStones, size }) => {
 export default function StoneGrid(props) {
   const [getStones] = useGlobal("stoneMatrix");
   const { stone, size } = props;
-  return <div className="board">{GenerateStones({ getStones, size })}</div>;
+  return (
+    <div className={`grid sizeg${size}`}>
+      {GenerateStones({ getStones, size })}
+    </div>
+  );
 }

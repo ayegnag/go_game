@@ -1,0 +1,42 @@
+.Turn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 10vw;
+  height: 20vw;
+  background: #a76a26;
+  border-radius: 5%;
+  .big {
+    width: 5vw;
+    height: 5vw;
+    top: unset;
+    left: unset;
+  }
+
+  .button {
+    background: #e8cc7b;
+    border-radius: 10%;
+    color: #5a2409;
+    font-weight: 600;
+    padding: 0.8vw;
+    border: none;
+    &:hover {
+      background: #e8cc00;
+      cursor: pointer;
+    }
+  }
+  .topContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+  }
+  .title {
+    width: 100%;
+    font-size: 1.1em;
+    font-weight: 100;
+    color: #ffe;
+    margin-bottom: 1vw;
+  }
+}

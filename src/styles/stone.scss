@@ -1,0 +1,78 @@
+$cell: 2vw;
+.stone {
+  $stoneSize: $cell - 2;
+  border: {
+    radius: 50%;
+  }
+  display: block;
+  height: $stoneSize;
+  position: absolute;
+  width: $stoneSize;
+  top: calc(#{$cell}* 0.12);
+  left: calc(#{$cell}* 0.12);
+
+  &:before,
+  &:after {
+    border-radius: 50%;
+    bottom: 0;
+    content: "";
+    display: block;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  &:before {
+    z-index: 2;
+  }
+
+  &:after {
+    box-shadow: 2.5px 4px 0.5em hsla(0, 0%, 0%, 0.5);
+    z-index: 1;
+  }
+
+  &.black {
+    &:before {
+      background: {
+        color: black;
+        image: linear-gradient(145deg, transparent, black 65%),
+          radial-gradient(
+            $cell - 1 at 42% 38%,
+            hsla(0, 0%, 100%, 0.25) 0%,
+            hsla(0, 0%, 100%, 0.25) 35%,
+            transparent 36%
+          );
+      }
+    }
+  }
+  &.white {
+    &:before {
+      background: {
+        color: hsla(0, 0%, 90%, 1);
+        image: linear-gradient(145deg, transparent, white 65%),
+          radial-gradient(
+            $cell - 1 at 42% 38%,
+            hsla(0, 0%, 100%, 1) 0%,
+            hsla(0, 0%, 100%, 1) 35%,
+            transparent 36%
+          );
+      }
+    }
+  }
+}
+
+// .stone {
+//   width: calc(#{$cell} * 0.75);
+//   height: calc(#{$cell} * 0.75);
+//   border-radius: 50%;
+//   position: absolute;
+//   top: calc(#{$cell}* 0.12);
+//   left: calc(#{$cell}* 0.12);
+// }
+// .stone.white {
+//   background: #ffe;
+// }
+// .stone.black {
+//   background: #111;
+// }

@@ -36,7 +36,10 @@ export class Board extends Component {
   };
   render() {
     const { size } = this.props;
-    return <div className="board">{this.generateBoard(size)}</div>;
+    return (
+      <div className={`board size${size}`}>{this.generateBoard(size)}</div>
+      // <div className={`board size${size}`} />
+    );
   }
 }
 export default Board;
