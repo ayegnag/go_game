@@ -3,7 +3,7 @@ function isPitOccipied(stone) {
   return stone.type !== 0 ? false : true;
 }
 
-function rules(newStone, xy, boardState, size, updateBoard) {
+function rules(newStone, xy, boardState, size, showError) {
   const isWithinBounds = stone => {
     return (
       stone &&
@@ -50,9 +50,10 @@ function rules(newStone, xy, boardState, size, updateBoard) {
     libStones = libStones || [];
     const nStones = findNeighbours(stone, boardState);
     nStones.forEach(nstone => {
+      console.log("TCL: calcLiberties -> nstone", nstone);
       if (isWithinBounds(nstone, size)) {
         if (stone.type === nstone.type) {
-          chainStones.push(nstone);
+          chainStones.push(stone);
           if (!isInArray(nstone, chainStones)) {
             calcLiberties(nstone, chainStones, libStones);
           }
@@ -115,8 +116,12 @@ function rules(newStone, xy, boardState, size, updateBoard) {
     captures.forEach(cap => {
       const cr = cap.col + "_" + cap.row;
       board[cr].type = 0;
+      board[cr].key = cr;
     });
-    updateBoard(board);
+    boardState = board;
+  } else if (calcLiberties(newStone).length === 0) {
+    showError("suicide");
+    result = false;
   }
   console.log("TCL: rules -> result", result);
   return result;

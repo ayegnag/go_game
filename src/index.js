@@ -7,6 +7,10 @@ setGlobal({
   boardData: {},
   turn: 1,
   boardSize: 9,
+  showError: {
+    message: "",
+    show: false
+  },
   position: {
     row: 0,
     col: 0

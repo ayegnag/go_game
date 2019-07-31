@@ -2,6 +2,7 @@ import React, { Component } from "reactn";
 import Board from "./components/board/board";
 import StoneGrid from "./components/board/stoneGrid";
 import TurnBox from "./components/turnBox/turnBox";
+import ErrorBox from "./components/errorBox/errorBox";
 import "./App.scss";
 
 class App extends Component {
@@ -33,6 +34,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header" />
+        <ErrorBox />
         <div className="mainContainer">
           <div className={`container size${boardSize}`}>
             <Board size={boardSize} />
