@@ -18,19 +18,19 @@ function Stone(prop) {
     to: { opacity: 1, top: "12%", width: "75%", height: "75%", zIndex: "9" },
     config: config.slow
   });
-  // const pullBack = useSpring({
-  //   from: { opacity: 1, top: "12%", width: "75%", height: "75%", zIndex: "9" },
-  //   to: {
-  //     opacity: 0.3
-  //   },
-  //   config: config.slow
-  // });
+  const pullBack = useSpring({
+    from: { opacity: 1, top: "12%", width: "75%", height: "75%", zIndex: "9" },
+    to: {
+      opacity: 0.3
+    },
+    config: config.slow
+  });
   return (
     <>
       {stone === 1 && <animated.div style={putDown} className="stone white" />}
       {stone === 2 && <animated.div style={putDown} className="stone black" />}
-      {/* {stone === 3 && <animated.div style={pullBack} className="stone white" />}
-      {stone === 4 && <animated.div style={pullBack} className="stone black" />} */}
+      {stone === 3 && <animated.div style={pullBack} className="stone white" />}
+      {stone === 4 && <animated.div style={pullBack} className="stone black" />}
     </>
   );
 }
@@ -78,8 +78,12 @@ export default class StonePit extends React.Component {
       if (abidesRules) {
         console.log("TCL: StonePit -> validMove", validMove);
         // ------------ Rules End
+        const backup = this.global.backupBoards;
+        backup.push(preStones);
         this.setGlobal({
-          boardData: { ...preStones }
+          boardData: { ...preStones },
+          backupBoards: backup,
+          passed: false
         });
         this.ToggleTurn();
       }
@@ -134,11 +138,12 @@ export default class StonePit extends React.Component {
   };
 
   render() {
-    const { stone, xy, row, col } = this.props;
-    const { type } = this.state;
+    const { stone, xy, row, col, mark } = this.props;
+    const markPit = mark === 1 ? " markWhite" : mark === 2 ? " markBlack" : "";
+    // const { type } = this.state;
     return (
       <div
-        className="pit"
+        className={`pit${markPit}`}
         onClick={() => this.PlaceStone(xy, row, col)}
         onMouseOver={() => this.showPitPosition(row, col)}
       >

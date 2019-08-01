@@ -3,6 +3,52 @@ function isPitOccipied(stone) {
   return stone.type !== 0 ? false : true;
 }
 
+function getScores(board) {
+  console.log("GameOver");
+  return {
+    board: {},
+    message: "Player 1 Won!"
+  };
+}
+
+function countProps(obj) {
+  let count = 0;
+  let k;
+  for (k in obj) {
+    if (obj.hasOwnProperty(k)) {
+      count++;
+    }
+  }
+  return count;
+}
+
+function objectEquals(v1, v2) {
+  if (typeof v1 !== typeof v2) {
+    return false;
+  }
+
+  if (typeof v1 === "function") {
+    return v1.toString() === v2.toString();
+  }
+
+  if (v1 instanceof Object && v2 instanceof Object) {
+    if (countProps(v1) !== countProps(v2)) {
+      return false;
+    }
+    let r = true,
+      k;
+    for (k in v1) {
+      r = objectEquals(v1[k], v2[k]);
+      if (!r) {
+        return false;
+      }
+    }
+    return true;
+  } else {
+    return v1 === v2;
+  }
+}
+
 function rules(newStone, xy, boardState, size, showError) {
   const isWithinBounds = stone => {
     return (
@@ -108,8 +154,6 @@ function rules(newStone, xy, boardState, size, showError) {
   };
 
   let result = true;
-  // calcLiberties(newStone, [], [], boardState, size);
-  // calcChains(newStone, [], boardState, size);
   const captures = calcCapturedStones(newStone);
   if (captures.length > 0) {
     const board = boardState;
@@ -129,5 +173,6 @@ function rules(newStone, xy, boardState, size, showError) {
 
 module.exports = {
   rules,
-  isPitOccipied
+  isPitOccipied,
+  getScores
 };

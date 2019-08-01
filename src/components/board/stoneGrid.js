@@ -8,10 +8,17 @@ const GenerateStones = ({ boardData, size }) => {
     let stones = [];
     for (let column = 0; column < size; column++) {
       const xy = column + "_" + rows;
-      const { type, key } = boardData[xy];
+      const { type, key, mark } = boardData[xy];
       // console.log("TCL: GenerateStones -> xy", xy);
       stones.push(
-        <StonePit stone={type} key={key} xy={xy} row={rows} col={column} />
+        <StonePit
+          stone={type}
+          key={key}
+          xy={xy}
+          row={rows}
+          col={column}
+          mark={mark}
+        />
       );
     }
     grid.push(

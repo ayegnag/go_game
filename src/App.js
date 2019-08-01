@@ -20,7 +20,8 @@ class App extends Component {
           type: 0,
           row: r,
           col: c,
-          key: id
+          key: id,
+          mark: 0
         };
       }
     }

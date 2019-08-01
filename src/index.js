@@ -4,6 +4,7 @@ import App from "./App";
 import "./index.css";
 
 setGlobal({
+  backupBoards: [],
   boardData: {},
   turn: 1,
   boardSize: 9,
@@ -14,7 +15,9 @@ setGlobal({
   position: {
     row: 0,
     col: 0
-  }
+  },
+  passed: false,
+  gameOver: false
 });
 
 ReactDOM.render(<App />, document.getElementById("root"));

@@ -10,6 +10,18 @@ export default class ErrorBox extends Component {
       }
     });
   };
+  escFunction = event => {
+    if (event.keyCode === 27) {
+      this.hideBox();
+      //Do whatever when esc is pressed
+    }
+  };
+  componentDidMount() {
+    document.addEventListener("keydown", this.escFunction, false);
+  }
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.escFunction, false);
+  }
   render() {
     const { showError } = this.global;
     const { message, show } = showError;
