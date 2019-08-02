@@ -53,9 +53,13 @@
     width: 100%;
     padding-bottom: 0.5vw;
   }
-  .reset {
-    color: #fff;
+  .toolDiv {
+    flex: 1;
+  }
+  .tools {
+    color: #2b221985;
     &:hover {
+      color: #fff;
       cursor: pointer;
       width: 1.1em;
       height: 1.1em;

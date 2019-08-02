@@ -50,7 +50,7 @@ export default class StonePit extends React.Component {
 
   PlaceStone = (xy, row, col) => {
     console.log("TCL: xy", xy);
-    const { boardData, turn, boardSize } = this.global;
+    const { boardData, turn, boardSize, moveCount } = this.global;
     const preStones = { ...boardData };
     const newStone = {
       row,
@@ -83,7 +83,8 @@ export default class StonePit extends React.Component {
         this.setGlobal({
           boardData: { ...preStones },
           backupBoards: backup,
-          passed: false
+          passed: false,
+          moveCount: moveCount + 1
         });
         this.ToggleTurn();
       }

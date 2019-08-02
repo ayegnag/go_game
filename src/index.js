@@ -7,6 +7,7 @@ setGlobal({
   backupBoards: [],
   boardData: {},
   turn: 1,
+  moveCount: 0,
   boardSize: 9,
   showError: {
     message: "",

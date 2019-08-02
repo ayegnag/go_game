@@ -1,12 +1,19 @@
 import React, { Component } from "reactn";
 import { getScores } from "../board/rules";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRedoAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faRedoAlt,
+  faStepForward,
+  faStepBackward
+} from "@fortawesome/free-solid-svg-icons";
 
 import "./turn.scss";
 import "../../styles/stone.scss";
 
 export default class TurnBox extends Component {
+  state = {
+    stepCount: 0
+  };
   passTurn(turn) {
     const { passed } = this.global;
     if (passed) {
@@ -27,6 +34,31 @@ export default class TurnBox extends Component {
     });
     console.log("GameOver");
   }
+
+  backwardGame = () => {
+    const { backupBoards, moveCount } = this.global;
+    const stepBack = moveCount - 1;
+    if (stepBack >= 0) {
+      const lastState = backupBoards[stepBack];
+      this.setGlobal({
+        boardData: lastState,
+        moveCount: stepBack
+      });
+    }
+    console.log("Game Stepped Back");
+  };
+  forwardGame = () => {
+    const { backupBoards, moveCount } = this.global;
+    const stepForward = moveCount + 1;
+    if (stepForward < backupBoards.length) {
+      const lastState = backupBoards[stepForward];
+      this.setGlobal({
+        boardData: lastState,
+        moveCount: stepForward
+      });
+    }
+    console.log("Game Stepped Forward");
+  };
 
   resetGame = () => {
     const { backupBoards } = this.global;
@@ -58,11 +90,27 @@ export default class TurnBox extends Component {
           {position.row}, {position.col}
         </span>
         <div className="bottomTools">
-          <FontAwesomeIcon
-            icon={faRedoAlt}
-            className="reset"
-            onClick={() => this.resetGame()}
-          />
+          <div className="toolDiv">
+            <FontAwesomeIcon
+              icon={faStepBackward}
+              className="tools"
+              onClick={() => this.backwardGame()}
+            />
+          </div>
+          <div className="toolDiv">
+            <FontAwesomeIcon
+              icon={faStepForward}
+              className="tools"
+              onClick={() => this.forwardGame()}
+            />
+          </div>
+          <div className="toolDiv">
+            <FontAwesomeIcon
+              icon={faRedoAlt}
+              className="tools"
+              onClick={() => this.resetGame()}
+            />
+          </div>
         </div>
       </div>
     );
