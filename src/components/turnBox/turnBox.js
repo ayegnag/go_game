@@ -1,5 +1,8 @@
 import React, { Component } from "reactn";
 import { getScores } from "../board/rules";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRedoAlt } from "@fortawesome/free-solid-svg-icons";
+
 import "./turn.scss";
 import "../../styles/stone.scss";
 
@@ -14,15 +17,27 @@ export default class TurnBox extends Component {
   }
 
   endGame() {
-    const { boardState } = this.global;
+    const { boardData } = this.global;
+    console.log("TCL: TurnBox -> endGame -> boardState", boardData);
     // Do the calculation and find winner.
-    const { board, message } = getScores(boardState);
+    const { board, message } = getScores(boardData);
     this.setGlobal({
-      boardState: board,
+      boardData: board,
       showError: { show: true, message }
     });
     console.log("GameOver");
   }
+
+  resetGame = () => {
+    const { backupBoards } = this.global;
+    const firstState = backupBoards[0];
+    console.log("TCL: TurnBox -> resetGame -> backupBoards", backupBoards[0]);
+    this.setGlobal({
+      boardData: firstState,
+      backupBoards: [{ ...firstState }]
+    });
+    console.log("Game Resetted");
+  };
 
   render() {
     const { turn, position } = this.global;
@@ -42,6 +57,13 @@ export default class TurnBox extends Component {
         <span className="info">
           {position.row}, {position.col}
         </span>
+        <div className="bottomTools">
+          <FontAwesomeIcon
+            icon={faRedoAlt}
+            className="reset"
+            onClick={() => this.resetGame()}
+          />
+        </div>
       </div>
     );
   }

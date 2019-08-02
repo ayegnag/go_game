@@ -7,6 +7,7 @@
   height: 20vw;
   background: #a76a26;
   border-radius: 5%;
+  position: relative;
   .big {
     width: 5vw;
     height: 5vw;
@@ -41,5 +42,23 @@
   }
   .info {
     color: #fff9e9;
+  }
+  .bottomTools {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    padding-bottom: 0.5vw;
+  }
+  .reset {
+    color: #fff;
+    &:hover {
+      cursor: pointer;
+      width: 1.1em;
+      height: 1.1em;
+    }
   }
 }

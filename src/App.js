@@ -26,7 +26,8 @@ class App extends Component {
       }
     }
     this.setGlobal({
-      boardData
+      boardData,
+      backupBoards: [{ ...boardData }]
     });
   }
   componentDidMount() {}
