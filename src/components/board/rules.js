@@ -289,9 +289,5 @@ function rules(newStone, xy, boardState, size, history, showError) {
   return result;
 }
 
-module.exports = {
-  rules,
-  isPitOccipied,
-  getScores,
-  calcTerritory
-};
+// module.exports = {
+export { rules, isPitOccipied, getScores, calcTerritory };
