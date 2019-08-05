@@ -4,6 +4,7 @@ import App from "./App";
 import "./index.css";
 
 setGlobal({
+  splash: true,
   boardHistory: [],
   boardData: {},
   turn: 2,

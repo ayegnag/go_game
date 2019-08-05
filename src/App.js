@@ -3,49 +3,39 @@ import Board from "./components/board/board";
 import StoneGrid from "./components/board/stoneGrid";
 import TurnBox from "./components/turnBox/turnBox";
 import ErrorBox from "./components/errorBox/errorBox";
-import * as Constants from "../src/config/constants";
+import Splash from "./components/splashScreen/splash";
+// import * as Constants from "../src/config/constants";
 import "./App.scss";
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.generateBoardMatrix();
+    this.clearStorage();
   }
-  generateBoardMatrix() {
-    console.log(Constants);
-    const boardData = {};
-    const { boardSize } = this.global;
-    for (let r = 0; r < boardSize; r++) {
-      for (let c = 0; c < boardSize; c++) {
-        const id = c + "_" + r;
-        boardData[id] = {
-          row: r,
-          col: c,
-          key: id,
-          type: Constants.STONE.EMPTY,
-          mark: Constants.STONE.EMPTY
-        };
-      }
-    }
-    this.setGlobal({
-      boardData,
-      boardHistory: [{ ...boardData }]
-    });
+  clearStorage() {
+    localStorage.removeItem("board");
+    localStorage.removeItem("history");
+    localStorage.removeItem("moveCount");
+    localStorage.removeItem("turn");
   }
   componentDidMount() {}
   render() {
-    const { boardSize } = this.global;
+    const { boardSize, splash } = this.global;
     return (
       <div className="App">
-        <div className="App-header" />
-        <ErrorBox />
-        <div className="mainContainer">
-          <div className={`container size${boardSize}`}>
-            <Board size={boardSize} />
-            <StoneGrid stoneData={1} size={boardSize} />
-          </div>
-          <TurnBox />
-        </div>
+        {splash && <Splash />}
+        {!splash && (
+          <>
+            <ErrorBox />
+            <div className="mainContainer">
+              <div className={`container size${boardSize}`}>
+                <Board size={boardSize} />
+                <StoneGrid stoneData={1} size={boardSize} />
+              </div>
+              <TurnBox />
+            </div>
+          </>
+        )}
       </div>
     );
   }

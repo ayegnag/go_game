@@ -48,18 +48,21 @@ export default class TurnBox extends Component {
   }
   loadGame() {
     const boardState = localStorage.getItem("board");
-    console.log("TCL: TurnBox -> loadGame -> boardState", boardState);
-    const board = JSON.parse(boardState);
-    const history = JSON.parse(localStorage.getItem("history"));
-    const turn = JSON.parse(localStorage.getItem("turn"));
-    const moveCount = JSON.parse(localStorage.getItem("moveCount"));
-    this.setGlobal({
-      boardData: board,
-      boardHistory: history,
-      turn,
-      moveCount
-    });
-    console.log("Game Loaded");
+    if (boardState) {
+      console.log("TCL: TurnBox -> loadGame -> boardState", boardState);
+      const board = JSON.parse(boardState);
+      const history = JSON.parse(localStorage.getItem("history"));
+      const turn = JSON.parse(localStorage.getItem("turn"));
+      const moveCount = JSON.parse(localStorage.getItem("moveCount"));
+      this.setGlobal({
+        boardData: board,
+        boardHistory: history,
+        turn,
+        moveCount
+      });
+      console.log("Game Loaded");
+    }
+    console.log("No previoud saved game found");
   }
 
   backwardGame = () => {

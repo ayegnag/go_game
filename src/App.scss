@@ -14,6 +14,9 @@ $size19: calc(#{$cell} * 19+ #{$board-borderthickness} * 2);
   text-align: center;
   background: $body-colour;
   height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .App-logo {

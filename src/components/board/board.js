@@ -1,9 +1,35 @@
 import React, { Component } from "reactn";
 import Cell from "./cell";
+import * as Constants from "../../config/constants";
 import "./board.scss";
 import short from "short-uuid";
 
 export class Board extends Component {
+  constructor(props) {
+    super(props);
+    this.generateBoardMatrix();
+  }
+  generateBoardMatrix() {
+    console.log(Constants);
+    const boardData = {};
+    const { boardSize } = this.global;
+    for (let r = 0; r < boardSize; r++) {
+      for (let c = 0; c < boardSize; c++) {
+        const id = c + "_" + r;
+        boardData[id] = {
+          row: r,
+          col: c,
+          key: id,
+          type: Constants.STONE.EMPTY,
+          mark: Constants.STONE.EMPTY
+        };
+      }
+    }
+    this.setGlobal({
+      boardData,
+      boardHistory: [{ ...boardData }]
+    });
+  }
   generateBoard = size => {
     let board = [];
     for (let rows = 0; rows < size; rows++) {
