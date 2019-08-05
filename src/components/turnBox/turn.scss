@@ -66,6 +66,7 @@
   .toolDiv {
     flex: 1;
     height: 1vw;
+    position: relative;
   }
   .tools {
     color: #2b221985;
@@ -76,4 +77,28 @@
       height: 1.1em;
     }
   }
+}
+
+.tooltip.top {
+  bottom: 1.4vw;
+}
+.tooltip.bottom {
+  top: 1.5vw;
+}
+.tooltip {
+  visibility: hidden;
+  width: 5vw;
+  background-color: #e8c17b;
+  color: #2b2219;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5pt 0;
+  font-size: small;
+  position: absolute;
+  transform: translateX(-50%);
+  left: 50%;
+  z-index: 99;
+}
+.toolDiv svg:hover + .tooltip {
+  visibility: visible;
 }

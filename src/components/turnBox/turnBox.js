@@ -116,6 +116,7 @@ export default class TurnBox extends Component {
               className="tools"
               onClick={() => this.saveGame()}
             />
+            <div className="tooltip top">Save Game</div>
           </div>
           <div className="toolDiv">
             <FontAwesomeIcon
@@ -123,6 +124,7 @@ export default class TurnBox extends Component {
               className="tools"
               onClick={() => this.loadGame()}
             />
+            <div className="tooltip top">Load Game</div>
           </div>
         </div>
         <div className="topContainer">
@@ -145,6 +147,7 @@ export default class TurnBox extends Component {
               className="tools"
               onClick={() => this.backwardGame()}
             />
+            <div className="tooltip bottom">Reverse Move</div>
           </div>
           <div className="toolDiv">
             <FontAwesomeIcon
@@ -152,6 +155,7 @@ export default class TurnBox extends Component {
               className="tools"
               onClick={() => this.forwardGame()}
             />
+            <div className="tooltip bottom">Forward Move</div>
           </div>
           <div className="toolDiv">
             <FontAwesomeIcon
@@ -159,6 +163,7 @@ export default class TurnBox extends Component {
               className="tools"
               onClick={() => this.resetGame()}
             />
+            <div className="tooltip bottom">Reset Game</div>
           </div>
         </div>
       </div>
