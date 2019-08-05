@@ -43,6 +43,16 @@
   .info {
     color: #fff9e9;
   }
+  .topTools {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    padding-top: 0.5vw;
+  }
   .bottomTools {
     position: absolute;
     bottom: 0;

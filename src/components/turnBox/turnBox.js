@@ -3,6 +3,8 @@ import { getScores } from "../board/rules";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faRedoAlt,
+  faSave,
+  faFolderOpen,
   faStepForward,
   faStepBackward
 } from "@fortawesome/free-solid-svg-icons";
@@ -24,22 +26,48 @@ export default class TurnBox extends Component {
   }
 
   endGame() {
-    const { boardData } = this.global;
+    const { boardData, boardSize } = this.global;
     console.log("TCL: TurnBox -> endGame -> boardState", boardData);
     // Do the calculation and find winner.
-    const { board, message } = getScores(boardData);
+    const { message } = getScores(boardData, boardSize);
     this.setGlobal({
-      boardData: board,
+      // boardData: board,
       showError: { show: true, message }
     });
     console.log("GameOver");
   }
+  saveGame() {
+    const { boardData, boardHistory, turn, moveCount } = this.global;
+    const dataString = JSON.stringify(boardData);
+    const backupString = JSON.stringify(boardHistory);
+    localStorage.setItem("board", dataString);
+    localStorage.setItem("history", backupString);
+    localStorage.setItem("moveCount", moveCount);
+    localStorage.setItem("turn", turn);
+    console.log("Game Saved");
+  }
+  loadGame() {
+    const boardState = localStorage.getItem("board");
+    console.log("TCL: TurnBox -> loadGame -> boardState", boardState);
+    const board = JSON.parse(boardState);
+    const history = JSON.parse(localStorage.getItem("history"));
+    const turn = JSON.parse(localStorage.getItem("turn"));
+    const moveCount = JSON.parse(localStorage.getItem("moveCount"));
+    this.setGlobal({
+      boardData: board,
+      boardHistory: history,
+      turn,
+      moveCount
+    });
+    console.log("Game Loaded");
+  }
 
   backwardGame = () => {
-    const { backupBoards, moveCount } = this.global;
+    const { boardHistory, moveCount } = this.global;
+    console.log("TCL: TurnBox -> backwardGame -> moveCount", moveCount);
     const stepBack = moveCount - 1;
     if (stepBack >= 0) {
-      const lastState = backupBoards[stepBack];
+      const lastState = boardHistory[stepBack];
       this.setGlobal({
         boardData: lastState,
         moveCount: stepBack
@@ -48,10 +76,10 @@ export default class TurnBox extends Component {
     console.log("Game Stepped Back");
   };
   forwardGame = () => {
-    const { backupBoards, moveCount } = this.global;
+    const { boardHistory, moveCount } = this.global;
     const stepForward = moveCount + 1;
-    if (stepForward < backupBoards.length) {
-      const lastState = backupBoards[stepForward];
+    if (stepForward < boardHistory.length) {
+      const lastState = boardHistory[stepForward];
       this.setGlobal({
         boardData: lastState,
         moveCount: stepForward
@@ -61,12 +89,14 @@ export default class TurnBox extends Component {
   };
 
   resetGame = () => {
-    const { backupBoards } = this.global;
-    const firstState = backupBoards[0];
-    console.log("TCL: TurnBox -> resetGame -> backupBoards", backupBoards[0]);
+    const { boardHistory } = this.global;
+    const firstState = boardHistory[0];
+    console.log("TCL: TurnBox -> resetGame -> boardHistory", boardHistory[0]);
     this.setGlobal({
+      moveCount: 0,
+      turn: 2,
       boardData: firstState,
-      backupBoards: [{ ...firstState }]
+      boardHistory: [{ ...firstState }]
     });
     console.log("Game Resetted");
   };
@@ -76,6 +106,22 @@ export default class TurnBox extends Component {
 
     return (
       <div className="Turn">
+        <div className="topTools">
+          <div className="toolDiv">
+            <FontAwesomeIcon
+              icon={faSave}
+              className="tools"
+              onClick={() => this.saveGame()}
+            />
+          </div>
+          <div className="toolDiv">
+            <FontAwesomeIcon
+              icon={faFolderOpen}
+              className="tools"
+              onClick={() => this.loadGame()}
+            />
+          </div>
+        </div>
         <div className="topContainer">
           <span className="title">Next Turn</span>
           <div className="big">

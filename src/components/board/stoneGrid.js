@@ -21,6 +21,8 @@ const GenerateStones = ({ boardData, size }) => {
         />
       );
     }
+    // stones.push(<div className="pit">{String.fromCharCode(65 + column)}</div>);
+
     grid.push(
       <div className="row" key={"r" + rows}>
         {stones}

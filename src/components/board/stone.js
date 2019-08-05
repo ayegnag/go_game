@@ -6,7 +6,7 @@ import "../../styles/stone.scss";
 
 function Stone(prop) {
   const { stone } = prop;
-  console.log("TCL: Stone -> stone", stone);
+  // console.log("TCL: Stone -> stone", stone);
   const putDown = useSpring({
     from: {
       opacity: 0,
@@ -38,7 +38,7 @@ function Stone(prop) {
 export default class StonePit extends React.Component {
   ToggleTurn = () => {
     const { turn } = this.global;
-    console.log("TCL: ToggleTurn -> getTurn", turn);
+    // console.log("TCL: ToggleTurn -> getTurn", turn);
     this.setGlobal({ turn: turn === 1 ? 2 : 1 });
   };
 
@@ -49,40 +49,45 @@ export default class StonePit extends React.Component {
   };
 
   PlaceStone = (xy, row, col) => {
-    console.log("TCL: xy", xy);
-    const { boardData, turn, boardSize, moveCount } = this.global;
+    // console.log("TCL: xy", xy);
+    const { boardData, turn, boardSize, moveCount, boardHistory } = this.global;
     const preStones = { ...boardData };
     const newStone = {
       row,
       col,
       key: col + "_" + row + "placed",
       type: turn,
-      group: "",
-      liberties: 4
+      mark: 0
     };
+
+    // TODO: Bugfix for handling moves after moving in history
+    //  Check if the state has been forwarded or reversed.
+    //  Update the state from history to boardState.
+
     // Use Game Rule Check here----------------------------------------
     const validMove = isPitOccipied(boardData[xy]);
     if (validMove) {
       preStones[xy] = newStone;
-      console.log(
-        "TCL: StonePit -> PlaceStone -> preStones[xy]",
-        preStones[xy]
-      );
+      // console.log(
+      // "TCL: StonePit -> PlaceStone -> preStones[xy]",
+      // preStones[xy]
+      // );
       const abidesRules = rules(
         newStone,
         xy,
         preStones,
         boardSize,
+        boardHistory,
         this.showError
       );
       if (abidesRules) {
-        console.log("TCL: StonePit -> validMove", validMove);
+        // console.log("TCL: StonePit -> validMove", validMove);
         // ------------ Rules End
-        const backup = this.global.backupBoards;
-        backup.push(preStones);
+        const history = boardHistory;
+        history.push(preStones);
         this.setGlobal({
           boardData: { ...preStones },
-          backupBoards: backup,
+          boardHistory: history,
           passed: false,
           moveCount: moveCount + 1
         });
@@ -96,7 +101,7 @@ export default class StonePit extends React.Component {
   };
 
   showPitPosition = (row, col) => {
-    console.log("TCL: StonePit -> showPitPosition -> showPitPosition");
+    // console.log("TCL: StonePit -> showPitPosition -> showPitPosition");
     this.setGlobal({
       position: {
         row,
@@ -106,7 +111,7 @@ export default class StonePit extends React.Component {
   };
 
   // static getDerivedStateFromProps(props, state) {
-  //   console.log("TCL: StonePit -> getDerivedStateFromProps");
+  // //   console.log("TCL: StonePit -> getDerivedStateFromProps");
   //   const { stone } = props;
   //   const prevStone = state.type;
   //   if (prevStone === 1 && stone === 0) {

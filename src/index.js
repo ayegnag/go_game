@@ -4,9 +4,9 @@ import App from "./App";
 import "./index.css";
 
 setGlobal({
-  backupBoards: [],
+  boardHistory: [],
   boardData: {},
-  turn: 1,
+  turn: 2,
   moveCount: 0,
   boardSize: 9,
   showError: {
