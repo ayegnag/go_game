@@ -1,6 +1,7 @@
 $cell: 2vw;
 $cross-size: 2vw;
-$cross-size: 2vw;
+$cell-mob: 5vw;
+$cross-size-mob: 5vw;
 $body-colour: #2b2219;
 $cross-colour: #74483b;
 $cross-linethickness: 2px;
@@ -8,7 +9,34 @@ $board-border: #ad702a;
 $board-borderthickness: 1vw;
 $size9: calc(#{$cell} * 9 + #{$board-borderthickness} * 2);
 $size13: calc(#{$cell} * 13 + #{$board-borderthickness} * 2);
-$size19: calc(#{$cell} * 19+ #{$board-borderthickness} * 2);
+$size19: calc(#{$cell} * 19 + #{$board-borderthickness} * 2);
+$size9-mob: calc(#{$cell-mob} * 9 + #{$board-borderthickness} * 2);
+$size13-mob: calc(#{$cell-mob} * 13 + #{$board-borderthickness} * 2);
+$size19-mob: calc(#{$cell-mob} * 19 + #{$board-borderthickness} * 2);
+
+@mixin for-size($size) {
+  @if $size == phone-only {
+    @media (max-width: 599px) {
+      @content;
+    }
+  } @else if $size == tablet-portrait-up {
+    @media (min-width: 600px) {
+      @content;
+    }
+  } @else if $size == tablet-landscape-up {
+    @media (min-width: 900px) {
+      @content;
+    }
+  } @else if $size == desktop-up {
+    @media (min-width: 1200px) {
+      @content;
+    }
+  } @else if $size == big-desktop-up {
+    @media (min-width: 1800px) {
+      @content;
+    }
+  }
+}
 
 .App {
   text-align: center;
@@ -24,12 +52,6 @@ $size19: calc(#{$cell} * 19+ #{$board-borderthickness} * 2);
   height: 80px;
 }
 
-/* .App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-} */
 .App-intro {
   font-size: large;
 }
@@ -37,6 +59,9 @@ $size19: calc(#{$cell} * 19+ #{$board-borderthickness} * 2);
   display: flex;
   justify-content: center;
   align-items: center;
+  @include for-size(phone-only) {
+    flex-direction: column;
+  }
 }
 .container {
   padding: 5vw;
@@ -44,21 +69,24 @@ $size19: calc(#{$cell} * 19+ #{$board-borderthickness} * 2);
 .size9 {
   width: $size9;
   height: $size9;
+  @include for-size(phone-only) {
+    width: $size9-mob;
+    height: $size9-mob;
+  }
 }
 .size13 {
   width: $size13;
   height: $size13;
+  @include for-size(phone-only) {
+    width: $size13-mob;
+    height: $size13-mob;
+  }
 }
 .size19 {
   width: $size19;
   height: $size19;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+  @include for-size(phone-only) {
+    width: $size19-mob;
+    height: $size19-mob;
   }
 }

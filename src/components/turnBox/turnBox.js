@@ -109,61 +109,63 @@ export default class TurnBox extends Component {
 
     return (
       <div className="Turn">
-        <div className="topTools">
-          <div className="toolDiv">
-            <FontAwesomeIcon
-              icon={faSave}
-              className="tools"
-              onClick={() => this.saveGame()}
-            />
-            <div className="tooltip top">Save Game</div>
-          </div>
-          <div className="toolDiv">
-            <FontAwesomeIcon
-              icon={faFolderOpen}
-              className="tools"
-              onClick={() => this.loadGame()}
-            />
-            <div className="tooltip top">Load Game</div>
-          </div>
-        </div>
-        <div className="topContainer">
+        <div className="infoContainer">
           <span className="title">Next Turn</span>
           <div className="big">
             {turn === 1 && <div className="big stone white" />}
             {turn === 2 && <div className="big stone black" />}
           </div>
+          <button className="button" onClick={() => this.passTurn(turn)}>
+            Pass Turn
+          </button>
+          <span className="info">
+            {position.row}, {position.col}
+          </span>
         </div>
-        <button className="button" onClick={() => this.passTurn(turn)}>
-          Pass Turn
-        </button>
-        <span className="info">
-          {position.row}, {position.col}
-        </span>
-        <div className="bottomTools">
-          <div className="toolDiv">
-            <FontAwesomeIcon
-              icon={faStepBackward}
-              className="tools"
-              onClick={() => this.backwardGame()}
-            />
-            <div className="tooltip bottom">Reverse Move</div>
+        <div className="toolsContainer">
+          <div className="topTools">
+            <div className="toolDiv">
+              <FontAwesomeIcon
+                icon={faSave}
+                className="tools"
+                onClick={() => this.saveGame()}
+              />
+              <div className="tooltip top">Save Game</div>
+            </div>
+            <div className="toolDiv">
+              <FontAwesomeIcon
+                icon={faFolderOpen}
+                className="tools"
+                onClick={() => this.loadGame()}
+              />
+              <div className="tooltip top">Load Game</div>
+            </div>
           </div>
-          <div className="toolDiv">
-            <FontAwesomeIcon
-              icon={faStepForward}
-              className="tools"
-              onClick={() => this.forwardGame()}
-            />
-            <div className="tooltip bottom">Forward Move</div>
-          </div>
-          <div className="toolDiv">
-            <FontAwesomeIcon
-              icon={faRedoAlt}
-              className="tools"
-              onClick={() => this.resetGame()}
-            />
-            <div className="tooltip bottom">Reset Game</div>
+          <div className="bottomTools">
+            <div className="toolDiv">
+              <FontAwesomeIcon
+                icon={faStepBackward}
+                className="tools"
+                onClick={() => this.backwardGame()}
+              />
+              <div className="tooltip bottom">Reverse Move</div>
+            </div>
+            <div className="toolDiv">
+              <FontAwesomeIcon
+                icon={faStepForward}
+                className="tools"
+                onClick={() => this.forwardGame()}
+              />
+              <div className="tooltip bottom">Forward Move</div>
+            </div>
+            <div className="toolDiv">
+              <FontAwesomeIcon
+                icon={faRedoAlt}
+                className="tools"
+                onClick={() => this.resetGame()}
+              />
+              <div className="tooltip bottom">Reset Game</div>
+            </div>
           </div>
         </div>
       </div>

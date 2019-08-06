@@ -1,6 +1,7 @@
 $cell: 2vw;
 $cross-size: 2vw;
-$cross-size: 2vw;
+$cross-size-mob: 5vw;
+$cell-mob: 5vw;
 $cross-colour: #74483b;
 $cross-linethickness: 1px;
 $board-border: #ad702a;
@@ -8,6 +9,33 @@ $board-borderthickness: 1vw;
 $size9: calc(#{$cell} * 9 + #{$board-borderthickness} * 2);
 $size13: calc(#{$cell} * 13 + #{$board-borderthickness} * 2);
 $size19: calc(#{$cell} * 19 + #{$board-borderthickness} * 2);
+$size9-mob: calc(#{$cell-mob} * 9 + #{$board-borderthickness} * 2);
+$size13-mob: calc(#{$cell-mob} * 13 + #{$board-borderthickness} * 2);
+$size19-mob: calc(#{$cell-mob} * 19 + #{$board-borderthickness} * 2);
+
+@mixin for-size($size) {
+  @if $size == phone-only {
+    @media (max-width: 599px) {
+      @content;
+    }
+  } @else if $size == tablet-portrait-up {
+    @media (min-width: 600px) {
+      @content;
+    }
+  } @else if $size == tablet-landscape-up {
+    @media (min-width: 900px) {
+      @content;
+    }
+  } @else if $size == desktop-up {
+    @media (min-width: 1200px) {
+      @content;
+    }
+  } @else if $size == big-desktop-up {
+    @media (min-width: 1800px) {
+      @content;
+    }
+  }
+}
 
 .grid {
   display: flex;
@@ -39,6 +67,10 @@ $size19: calc(#{$cell} * 19 + #{$board-borderthickness} * 2);
     width: $cell;
     height: $cell;
     position: relative;
+    @include for-size(phone-only) {
+      width: $cell-mob;
+      height: $cell-mob;
+    }
     &:hover {
       background: #4d9c9875;
       border-radius: 20%;
@@ -96,36 +128,55 @@ $size19: calc(#{$cell} * 19 + #{$board-borderthickness} * 2);
     height: $cell;
     position: relative;
     background: #d9a569;
+    @include for-size(phone-only) {
+      width: $cell-mob;
+      height: $cell-mob;
+    }
   }
 }
 
-.size9 {
-  width: $size9;
-  height: $size9;
-}
-.size13 {
-  width: $size13;
-  height: $size13;
-}
-.size19 {
-  width: $size19;
-  height: $size19;
-}
+// .size9 {
+//   width: $size9;
+//   height: $size9;
+// }
+// .size13 {
+//   width: $size13;
+//   height: $size13;
+// }
+// .size19 {
+//   width: $size19;
+//   height: $size19;
+// }
 
 .sizeg9 {
   width: $size9;
   height: $size9;
   margin-top: calc(#{$size9} * -1);
+  @include for-size(phone-only) {
+    margin-top: calc(#{$size9-mob} * -1);
+    width: $size9-mob;
+    height: $size9-mob;
+  }
 }
 .sizeg13 {
   width: $size13;
   height: $size13;
   margin-top: calc(#{$size13} * -1);
+  @include for-size(phone-only) {
+    margin-top: calc(#{$size13-mob} * -1);
+    width: $size13-mob;
+    height: $size13-mob;
+  }
 }
 .sizeg19 {
   width: $size19;
   height: $size19;
   margin-top: calc(#{$size19} * -1);
+  @include for-size(phone-only) {
+    margin-top: calc(#{$size19-mob} * -1);
+    width: $size19-mob;
+    height: $size19-mob;
+  }
 }
 
 .cross.regular {
@@ -134,6 +185,10 @@ $size19: calc(#{$cell} * 19 + #{$board-borderthickness} * 2);
   position: absolute;
   left: calc(#{$cross-size}/ 2);
   width: $cross-linethickness;
+  @include for-size(phone-only) {
+    height: #{$cross-size-mob};
+    left: calc(#{$cross-size-mob}/ 2);
+  }
   &:after {
     background: $cross-colour;
     content: "";
@@ -142,6 +197,11 @@ $size19: calc(#{$cell} * 19 + #{$board-borderthickness} * 2);
     position: absolute;
     top: calc(#{$cross-size}/ 2);
     width: $cross-size;
+    @include for-size(phone-only) {
+      left: calc(-#{$cross-size-mob}/ 2);
+      top: calc(#{$cross-size-mob}/ 2);
+      width: $cross-size-mob;
+    }
   }
 }
 
@@ -151,6 +211,10 @@ $size19: calc(#{$cell} * 19 + #{$board-borderthickness} * 2);
   position: absolute;
   left: calc(#{$cross-size}/ 2);
   width: $cross-linethickness;
+  @include for-size(phone-only) {
+    height: #{$cross-size-mob};
+    left: calc(#{$cross-size-mob}/ 2);
+  }
   &:after {
     background: $cross-colour;
     content: "";
@@ -159,6 +223,10 @@ $size19: calc(#{$cell} * 19 + #{$board-borderthickness} * 2);
     position: absolute;
     top: calc(#{$cross-size}/ 2);
     width: calc(#{$cross-size}/ 2);
+    @include for-size(phone-only) {
+      top: calc(#{$cross-size-mob}/ 2);
+      width: calc(#{$cross-size-mob}/ 2);
+    }
   }
 }
 
@@ -168,6 +236,10 @@ $size19: calc(#{$cell} * 19 + #{$board-borderthickness} * 2);
   position: absolute;
   left: calc(#{$cross-size}/ 2);
   width: $cross-linethickness;
+  @include for-size(phone-only) {
+    height: #{$cross-size-mob};
+    left: calc(#{$cross-size-mob}/ 2);
+  }
   &:after {
     background: $cross-colour;
     content: "";
@@ -176,6 +248,11 @@ $size19: calc(#{$cell} * 19 + #{$board-borderthickness} * 2);
     position: absolute;
     top: calc(#{$cross-size}/ 2);
     width: calc(#{$cross-size}/ 2);
+    @include for-size(phone-only) {
+      left: calc(-#{$cross-size-mob}/ 2);
+      top: calc(#{$cross-size-mob}/ 2);
+      width: calc(#{$cross-size-mob}/ 2);
+    }
   }
 }
 
@@ -186,7 +263,11 @@ $size19: calc(#{$cell} * 19 + #{$board-borderthickness} * 2);
   left: calc(#{$cross-size}/ 2);
   top: calc(#{$cross-size}/ 2);
   width: $cross-linethickness;
-
+  @include for-size(phone-only) {
+    height: calc(#{$cross-size-mob}/ 2);
+    left: calc(#{$cross-size-mob}/ 2);
+    top: calc(#{$cross-size-mob}/ 2);
+  }
   &:after {
     background: $cross-colour;
     content: "";
@@ -195,6 +276,10 @@ $size19: calc(#{$cell} * 19 + #{$board-borderthickness} * 2);
     position: absolute;
     top: 0;
     width: $cross-size;
+    @include for-size(phone-only) {
+      width: $cross-size-mob;
+      left: calc(-#{$cross-size-mob}/ 2);
+    }
   }
 }
 
@@ -205,15 +290,23 @@ $size19: calc(#{$cell} * 19 + #{$board-borderthickness} * 2);
   left: calc(#{$cross-size}/ 2);
   top: 0;
   width: $cross-linethickness;
-
+  @include for-size(phone-only) {
+    height: calc(#{$cross-size-mob}/ 2);
+    left: calc(#{$cross-size-mob}/ 2);
+  }
   &:after {
     background: $cross-colour;
     content: "";
     height: $cross-linethickness;
     left: calc(-#{$cross-size}/ 2);
-    position: absolute;
     top: calc(#{$cross-size}/ 2);
+    position: absolute;
     width: $cross-size;
+    @include for-size(phone-only) {
+      width: $cross-size-mob;
+      left: calc(-#{$cross-size-mob}/ 2);
+      top: calc(#{$cross-size-mob}/ 2);
+    }
   }
 }
 
@@ -227,8 +320,14 @@ $size19: calc(#{$cell} * 19 + #{$board-borderthickness} * 2);
 
 .cross.top.cross.right::after {
   width: calc(#{$cross-size}/ 2);
+  @include for-size(phone-only) {
+    width: calc(#{$cross-size-mob}/ 2);
+  }
 }
 
 .cross.bottom.cross.right::after {
   width: calc(#{$cross-size}/ 2);
+  @include for-size(phone-only) {
+    width: calc(#{$cross-size-mob}/ 2);
+  }
 }
