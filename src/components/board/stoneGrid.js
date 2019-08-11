@@ -2,7 +2,7 @@ import React, { useGlobal } from "reactn";
 import StonePit from "./stone";
 import "./board.scss";
 
-const GenerateStones = ({ boardData, size }) => {
+const GenerateStones = ({ boardData, size }, sendUpdate) => {
   let grid = [];
   for (let rows = 0; rows < size; rows++) {
     let stones = [];
@@ -18,6 +18,7 @@ const GenerateStones = ({ boardData, size }) => {
           row={rows}
           col={column}
           mark={mark}
+          sendUpdate={sendUpdate}
         />
       );
     }
@@ -34,10 +35,10 @@ const GenerateStones = ({ boardData, size }) => {
 
 export default function StoneGrid(props) {
   const [boardData] = useGlobal("boardData");
-  const { size } = props;
+  const { size, sendUpdate } = props;
   return (
     <div className={`grid sizeg${size}`}>
-      {GenerateStones({ boardData, size })}
+      {GenerateStones({ boardData, size }, sendUpdate)}
     </div>
   );
 }

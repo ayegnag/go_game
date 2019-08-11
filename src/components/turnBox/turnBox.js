@@ -105,7 +105,13 @@ export default class TurnBox extends Component {
   };
 
   render() {
-    const { turn, position } = this.global;
+    const {
+      turn,
+      position,
+      gameCode,
+      remoteGame,
+      thisPlayerStone
+    } = this.global;
 
     return (
       <div className="Turn">
@@ -123,50 +129,64 @@ export default class TurnBox extends Component {
           </span>
         </div>
         <div className="toolsContainer">
-          <div className="topTools">
-            <div className="toolDiv">
-              <FontAwesomeIcon
-                icon={faSave}
-                className="tools"
-                onClick={() => this.saveGame()}
-              />
-              <div className="tooltip top">Save Game</div>
+          {remoteGame && (
+            <div className="topTools">
+              Your colour: {thisPlayerStone === 1 ? "White" : "Black"}
             </div>
-            <div className="toolDiv">
-              <FontAwesomeIcon
-                icon={faFolderOpen}
-                className="tools"
-                onClick={() => this.loadGame()}
-              />
-              <div className="tooltip top">Load Game</div>
+          )}
+          {gameCode && (
+            <div className="bottomTools">
+              <span className="gCode">Code: {gameCode}</span>
             </div>
-          </div>
-          <div className="bottomTools">
-            <div className="toolDiv">
-              <FontAwesomeIcon
-                icon={faStepBackward}
-                className="tools"
-                onClick={() => this.backwardGame()}
-              />
-              <div className="tooltip bottom">Reverse Move</div>
-            </div>
-            <div className="toolDiv">
-              <FontAwesomeIcon
-                icon={faStepForward}
-                className="tools"
-                onClick={() => this.forwardGame()}
-              />
-              <div className="tooltip bottom">Forward Move</div>
-            </div>
-            <div className="toolDiv">
-              <FontAwesomeIcon
-                icon={faRedoAlt}
-                className="tools"
-                onClick={() => this.resetGame()}
-              />
-              <div className="tooltip bottom">Reset Game</div>
-            </div>
-          </div>
+          )}
+          {!gameCode && (
+            <>
+              <div className="topTools">
+                <div className="toolDiv">
+                  <FontAwesomeIcon
+                    icon={faSave}
+                    className="tools"
+                    onClick={() => this.saveGame()}
+                  />
+                  <div className="tooltip top">Save Game</div>
+                </div>
+                <div className="toolDiv">
+                  <FontAwesomeIcon
+                    icon={faFolderOpen}
+                    className="tools"
+                    onClick={() => this.loadGame()}
+                  />
+                  <div className="tooltip top">Load Game</div>
+                </div>
+              </div>
+              <div className="bottomTools">
+                <div className="toolDiv">
+                  <FontAwesomeIcon
+                    icon={faStepBackward}
+                    className="tools"
+                    onClick={() => this.backwardGame()}
+                  />
+                  <div className="tooltip bottom">Reverse Move</div>
+                </div>
+                <div className="toolDiv">
+                  <FontAwesomeIcon
+                    icon={faStepForward}
+                    className="tools"
+                    onClick={() => this.forwardGame()}
+                  />
+                  <div className="tooltip bottom">Forward Move</div>
+                </div>
+                <div className="toolDiv">
+                  <FontAwesomeIcon
+                    icon={faRedoAlt}
+                    className="tools"
+                    onClick={() => this.resetGame()}
+                  />
+                  <div className="tooltip bottom">Reset Game</div>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
     );

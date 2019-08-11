@@ -48,7 +48,7 @@ export default class StonePit extends React.Component {
     });
   };
 
-  PlaceStone = (xy, row, col) => {
+  PlaceStone = (xy, row, col, sendUpdate) => {
     // console.log("TCL: xy", xy);
     const { boardData, turn, boardSize, moveCount, boardHistory } = this.global;
     const preStones = { ...boardData };
@@ -92,6 +92,7 @@ export default class StonePit extends React.Component {
           moveCount: moveCount + 1
         });
         this.ToggleTurn();
+        sendUpdate();
       }
     }
   };
@@ -144,14 +145,28 @@ export default class StonePit extends React.Component {
   };
 
   render() {
-    const { stone, xy, row, col, mark } = this.props;
+    const { turn, thisPlayerStone, remoteGame } = this.global;
+    const { stone, xy, row, col, mark, sendUpdate } = this.props;
     const markPit = mark === 1 ? " markWhite" : mark === 2 ? " markBlack" : "";
-    // const { type } = this.state;
+    const noHover = remoteGame && thisPlayerStone !== turn ? " noHover" : "";
+
     return (
       <div
-        className={`pit${markPit}`}
-        onClick={() => this.PlaceStone(xy, row, col)}
-        onMouseOver={() => this.showPitPosition(row, col)}
+        className={`pit${markPit}${noHover}`}
+        onClick={
+          remoteGame
+            ? thisPlayerStone === turn
+              ? () => this.PlaceStone(xy, row, col, sendUpdate)
+              : null
+            : () => this.PlaceStone(xy, row, col, sendUpdate)
+        }
+        onMouseOver={
+          !remoteGame
+            ? () => this.showPitPosition(row, col)
+            : thisPlayerStone === turn
+            ? () => this.showPitPosition(row, col)
+            : null
+        }
       >
         <Stone stone={stone} />
       </div>

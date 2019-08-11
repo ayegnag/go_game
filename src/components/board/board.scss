@@ -2,6 +2,7 @@ $cell: 2vw;
 $cross-size: 2vw;
 $cross-size-mob: 5vw;
 $cell-mob: 5vw;
+// $cross-colour: #999;
 $cross-colour: #74483b;
 $cross-linethickness: 1px;
 $board-border: #ad702a;
@@ -77,6 +78,9 @@ $size19-mob: calc(#{$cell-mob} * 19 + #{$board-borderthickness} * 2);
       cursor: none;
     }
   }
+  .pit.noHover {
+    pointer-events: none;
+  }
   .pit.markBlack {
     border-radius: 50%;
     background: #13131352;
@@ -93,7 +97,25 @@ $size19-mob: calc(#{$cell-mob} * 19 + #{$board-borderthickness} * 2);
   align-items: flex-start;
   color: #fff;
   position: relative;
+  // box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
   background: #d9a569;
+  z-index: 1;
+  // background-color: rgba(255, 255, 255, 0.15);
+  // backdrop-filter: blur(5px);
+  // background: inherit;
+  // &:before {
+  //   content: "";
+  //   position: absolute;
+  //   background: inherit;
+  //   z-index: -1;
+  //   top: 0;
+  //   left: 0;
+  //   right: 0;
+  //   bottom: 0;
+  //   box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.5);
+  //   filter: blur(10px);
+  //   margin: -20px;
+  // }
   // &:before {
   //   background-image: linear-gradient(180deg, black 0, transparent 1px),
   //     linear-gradient(90deg, black 0, transparent 1px);
@@ -127,7 +149,7 @@ $size19-mob: calc(#{$cell-mob} * 19 + #{$board-borderthickness} * 2);
     width: $cell;
     height: $cell;
     position: relative;
-    background: #d9a569;
+    // background: #d9a569;
     @include for-size(phone-only) {
       width: $cell-mob;
       height: $cell-mob;

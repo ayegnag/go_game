@@ -2,7 +2,7 @@ $cell: 2vw;
 $cross-size: 2vw;
 $cell-mob: 5vw;
 $cross-size-mob: 5vw;
-$body-colour: #2b2219;
+$body-colour: #42aeaa;
 $cross-colour: #74483b;
 $cross-linethickness: 2px;
 $board-border: #ad702a;
@@ -38,13 +38,57 @@ $size19-mob: calc(#{$cell-mob} * 19 + #{$board-borderthickness} * 2);
   }
 }
 
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  img {
+    height: 12vh;
+    @include for-size(phone-only) {
+      height: 8vh;
+    }
+  }
+}
+
 .App {
   text-align: center;
-  background: $body-colour;
+  // background: $body-colour;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  background: radial-gradient(black 3px, transparent 4px),
+    radial-gradient(black 3px, transparent 4px),
+    linear-gradient(#777169 4px, transparent 0),
+    linear-gradient(
+      45deg,
+      transparent 74px,
+      transparent 75px,
+      #a4a4a4 75px,
+      #a4a4a4 76px,
+      transparent 77px,
+      transparent 109px
+    ),
+    linear-gradient(
+      -45deg,
+      transparent 75px,
+      transparent 76px,
+      #a4a4a4 76px,
+      #a4a4a4 77px,
+      transparent 78px,
+      transparent 109px
+    ),
+    #777169;
+  background-size: 109px 109px, 109px 109px, 100% 6px, 109px 109px, 109px 109px;
+  background-position: 54px 55px, 0px 0px, 0px 0px, 0px 0px, 0px 0px;
 }
 
 .App-logo {

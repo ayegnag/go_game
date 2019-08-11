@@ -30,7 +30,7 @@
   width: 10vw;
   height: 20vw;
   background: #a76a26;
-  border-radius: 5%;
+  border-radius: 1vw;
   position: relative;
   @include for-size(phone-only) {
     width: 60vw;
@@ -137,6 +137,9 @@
         padding: unset;
         flex: 1;
       }
+      .gCode {
+        color: #fff;
+      }
     }
     .toolDiv {
       flex: 1;
@@ -173,8 +176,6 @@
   padding: 5pt 0;
   font-size: small;
   position: absolute;
-  transform: translateX(-50%);
-  left: 50%;
   z-index: 99;
 }
 .toolDiv svg:hover + .tooltip {

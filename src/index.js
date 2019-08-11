@@ -4,7 +4,10 @@ import App from "./App";
 import "./index.css";
 
 setGlobal({
-  splash: true,
+  gameCode: null,
+  remoteGame: false,
+  thisPlayerStone: 2,
+  creator: false,
   boardHistory: [],
   boardData: {},
   turn: 2,
