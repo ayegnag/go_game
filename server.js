@@ -7,8 +7,14 @@ io.on("connection", client => {
   });
   client.on("joinGame", roomId => {
     console.log(`Player ${client.id} is joining a new Game  ${roomId}`);
-    client.join(roomId);
-    client.to(roomId).emit("requestGame");
+    const roomInfo = io.sockets.adapter.rooms[roomId];
+    console.log("TCL: roomInfo", roomInfo);
+    if (roomInfo === undefined) {
+      client.emit("wrongCode");
+    } else {
+      client.join(roomId);
+      client.to(roomId).emit("requestGame");
+    }
   });
   client.on("joinRoom", roomId => {
     console.log(`Player ${client.id} is joining a new Room ${roomId}`);

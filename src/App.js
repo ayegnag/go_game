@@ -11,6 +11,7 @@ import loading from "./pages/home/loading.gif";
 import openSocket from "socket.io-client";
 
 const baseUrl = window.location.origin.split(":")[1];
+console.log(baseUrl + ":8000");
 const socket = openSocket(baseUrl + ":8000");
 
 class App extends Component {
@@ -79,6 +80,7 @@ class App extends Component {
 
   componentDidMount() {
     socket.on("requestGame", data => {
+      console.log("TCL: App -> componentDidMount -> requestGame");
       const { boardSize, thisPlayerStone, gameCode } = this.global;
       socket.emit("sendSetup", {
         boardSize,
@@ -87,7 +89,10 @@ class App extends Component {
       });
     });
 
+    socket.on("wrongCode", () => {});
+
     socket.on("setupGame", data => {
+      console.log("TCL: App -> componentDidMount -> setupGame");
       const { boardSize, otherPlayer } = data;
       this.setGlobal({
         boardSize,
@@ -98,7 +103,7 @@ class App extends Component {
     });
 
     socket.on("turnData", data => {
-      console.log("Received move:", data);
+      console.log("Received turnData:", data);
       const { boardData, turn, moveCount } = data;
       if (Object.keys(boardData).length > 1) {
         this.setGlobal({

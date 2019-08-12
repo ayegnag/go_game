@@ -16,14 +16,16 @@ export default class TurnBox extends Component {
   state = {
     stepCount: 0
   };
-  passTurn(turn) {
+  passTurn = turn => {
     const { passed } = this.global;
+    const { sendUpdate } = this.props;
     if (passed) {
       this.setGlobal({ gameOver: true });
       this.endGame();
     }
     this.setGlobal({ turn: turn === 1 ? 2 : 1, passed: true });
-  }
+    sendUpdate();
+  };
 
   endGame() {
     const { boardData, boardSize } = this.global;

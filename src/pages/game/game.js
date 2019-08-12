@@ -16,7 +16,7 @@ export default class Game extends Component {
             <Board size={boardSize} />
             <StoneGrid stoneData={1} size={boardSize} sendUpdate={sendUpdate} />
           </div>
-          <TurnBox />
+          <TurnBox sendUpdate={sendUpdate} />
         </div>
       </>
     );

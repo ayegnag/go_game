@@ -1,19 +1,25 @@
 import React, { Component } from "reactn";
 import "./home.scss";
-import logo from "./goLogo.svg";
+import logo from "./goLogoS.svg";
 
 export default class Home extends Component {
-  state = {
-    screen: "mainScreen",
-    selectedSize: 9,
-    selectedStone: 2,
-    code: null
+  constructor(props) {
+    super(props);
+    this.state = {
+      screen: "mainScreen",
+      selectedSize: 9,
+      selectedStone: 2,
+      code: null
+    };
+    this.codeInput = React.createRef();
+  }
+
+  focusInput = () => {
+    this.codeInput.current.focusInput();
   };
 
   generateCode = () => {
-    let r = Math.random()
-      .toString(36)
-      .substring(7);
+    let r = Math.floor(Math.random() * 89999999 + 10000000).toString(36);
     console.log("Game Code Generated: ", r);
     return r;
   };
@@ -71,11 +77,6 @@ export default class Home extends Component {
       <div>
         <div className="pageTitle">
           <div className="titleContainer">
-            {/* <div className="balls">
-              <div className="whiteBall">Go</div>
-              <div className="blackBall" />
-              <div className="ballText">By Gangeya</div>
-            </div> */}
             <img
               className="logo"
               src={svgPath}
@@ -103,6 +104,7 @@ export default class Home extends Component {
                 placeholder="Code"
                 maxLength="6"
                 onChange={this.codeHandler}
+                ref={this.codeInput}
               />
               <div className="menuButton" onClick={() => joinGame(code)}>
                 Quick Join
