@@ -16,15 +16,25 @@ export default class TurnBox extends Component {
   state = {
     stepCount: 0
   };
-  passTurn = turn => {
+  passTurnRemote = turn => {
     const { passed } = this.global;
     const { sendUpdate } = this.props;
     if (passed) {
       this.setGlobal({ gameOver: true });
       this.endGame();
     }
+    this.setGlobal({ turn: turn === 1 ? 2 : 1, passed: true }, () => {
+      console.log("TCL: TurnBox -> sendUpdate Pass");
+      sendUpdate();
+    });
+  };
+  passTurn = turn => {
+    const { passed } = this.global;
+    if (passed) {
+      this.setGlobal({ gameOver: true });
+      this.endGame();
+    }
     this.setGlobal({ turn: turn === 1 ? 2 : 1, passed: true });
-    sendUpdate();
   };
 
   endGame() {
@@ -106,6 +116,11 @@ export default class TurnBox extends Component {
     console.log("Game Resetted");
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.global.remoteGame && this.global.gameOver) {
+      this.endGame();
+    }
+  }
   render() {
     const {
       turn,
@@ -123,7 +138,16 @@ export default class TurnBox extends Component {
             {turn === 1 && <div className="big stone white" />}
             {turn === 2 && <div className="big stone black" />}
           </div>
-          <button className="button" onClick={() => this.passTurn(turn)}>
+          <button
+            className="button"
+            onClick={
+              remoteGame
+                ? thisPlayerStone === turn
+                  ? () => this.passTurnRemote(turn)
+                  : null
+                : () => this.passTurn(turn)
+            }
+          >
             Pass Turn
           </button>
           <span className="info">

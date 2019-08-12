@@ -8460,6 +8460,11 @@ react@^16.8.6:
     prop-types "^15.6.2"
     scheduler "^0.13.6"
 
+reactn-devtools@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/reactn-devtools/-/reactn-devtools-1.0.1.tgz#5dddcae9ee3f910a2d354c3cf70e2dc581172834"
+  integrity sha512-4J0tsyntipvTCRRfsqPGifwf+0rm2QhrzbVXttsrG+4MAY9Q5NnKYWwkTrjYvhsLsVIkYyMVeYy6uZZAjuPKYQ==
+
 reactn@^2.1.7:
   version "2.1.7"
   resolved "https://registry.yarnpkg.com/reactn/-/reactn-2.1.7.tgz#4ad933d765d7f0a4e527b1bc131e10510d09a8d2"
@@ -8588,6 +8593,14 @@ redent@^1.0.0:
   dependencies:
     indent-string "^2.1.0"
     strip-indent "^1.0.1"
+
+redux@^4.0.4:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/redux/-/redux-4.0.4.tgz#4ee1aeb164b63d6a1bcc57ae4aa0b6e6fa7a3796"
+  integrity sha512-vKv4WdiJxOWKxK0yRoaK3Y4pxxB0ilzVx6dszU2W8wLxlb2yikRph4iV/ymtdJ6ZxpBLFbyrxklnT5yBbQSl3Q==
+  dependencies:
+    loose-envify "^1.4.0"
+    symbol-observable "^1.2.0"
 
 regenerate-unicode-properties@^8.0.2:
   version "8.1.0"
@@ -9687,6 +9700,11 @@ svgo@^1.0.0, svgo@^1.2.2:
     stable "^0.1.8"
     unquote "~1.1.1"
     util.promisify "~1.0.0"
+
+symbol-observable@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
+  integrity sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==
 
 symbol-tree@^3.2.2:
   version "3.2.4"

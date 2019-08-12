@@ -36,7 +36,14 @@ $size19-mob: calc(#{$cell-mob} * 19 + #{$board-borderthickness} * 2);
     }
   }
 }
-
+.footerBar {
+  position: absolute;
+  bottom: 0;
+  text-align: right;
+  color: #ccb7b7;
+  right: 0;
+  font-size: 0.8em;
+}
 .loading {
   display: flex;
   justify-content: center;

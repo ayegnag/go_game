@@ -7,7 +7,7 @@ import ErrorBox from "../../components/errorBox/errorBox";
 export default class Game extends Component {
   render() {
     const { sendUpdate } = this.props;
-    const { boardSize, splash } = this.global;
+    const { boardSize, gameOver } = this.global;
     return (
       <>
         <ErrorBox />
@@ -16,7 +16,7 @@ export default class Game extends Component {
             <Board size={boardSize} />
             <StoneGrid stoneData={1} size={boardSize} sendUpdate={sendUpdate} />
           </div>
-          <TurnBox sendUpdate={sendUpdate} />
+          <TurnBox sendUpdate={sendUpdate} gameOver={gameOver} />
         </div>
       </>
     );

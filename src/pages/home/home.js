@@ -9,13 +9,14 @@ export default class Home extends Component {
       screen: "mainScreen",
       selectedSize: 9,
       selectedStone: 2,
+      focusInput: false,
       code: null
     };
     this.codeInput = React.createRef();
   }
 
   focusInput = () => {
-    this.codeInput.current.focusInput();
+    this.codeInput.current.focus();
   };
 
   generateCode = () => {
@@ -38,6 +39,11 @@ export default class Home extends Component {
 
   codeHandler = event => {
     const code = event.target.value;
+    if (code.length > 6) {
+      event.target.value = code.substr(0, 6);
+      return;
+    }
+    event.target.value = code.toLowerCase();
     if (code.length >= 4) {
       console.log("Join Code: ", code);
       this.setState({
@@ -69,6 +75,14 @@ export default class Home extends Component {
   //     screen: "joinScreen"
   //   });
   // };
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      this.state.screen === "mainScreen" &&
+      prevState.focusInput !== this.props.focusInput
+    ) {
+      this.focusInput();
+    }
+  }
   render() {
     const { screen, selectedSize, selectedStone, code } = this.state;
     const { createGame, joinGame, playSolo } = this.props;
@@ -104,6 +118,7 @@ export default class Home extends Component {
                 placeholder="Code"
                 maxLength="6"
                 onChange={this.codeHandler}
+                pattern="[a-z0-9]+"
                 ref={this.codeInput}
               />
               <div className="menuButton" onClick={() => joinGame(code)}>
