@@ -173,7 +173,7 @@ class App extends Component {
         {page === "game" && (
           <Game sendUpdate={this.remoteUpdate} code={gameCode} />
         )}
-        <div className="footerBar">Go ver: 0.4. a game by Gangeya.</div>
+        <div className="footerBar">Go (ver: 0.8) a game by Gangeya.</div>
       </div>
     );
   }
