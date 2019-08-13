@@ -4,12 +4,9 @@ import Game from "./pages/game/game";
 import "./App.scss";
 import loading from "./pages/home/loading.gif";
 import openSocket from "socket.io-client";
-import { timingSafeEqual } from "crypto";
 
-// const baseUrl = window.location.origin.split(":")[1];
-// console.log(baseUrl + ":8000");
-const baseUrl = "https://go-game-server-gangeya.herokuapp.com";
-const socket = openSocket(baseUrl + ":8000");
+const baseUrl = "wss://go-game-server-gangeya.herokuapp.com";
+const socket = openSocket(baseUrl);
 
 class App extends Component {
   state = {
@@ -84,6 +81,11 @@ class App extends Component {
   };
 
   componentDidMount() {
+    // setInterval(() => {
+    //   socket.emit("heartbeat");
+    //   console.log("Sent heartbeat");
+    // }, 5000);
+
     socket.on("requestGame", data => {
       console.log("TCL: App -> componentDidMount -> requestGame");
       const {
